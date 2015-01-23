@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.astuetz.PagerSlidingTabStrip;
 import tw.alphacamp.tripphotoapp.R;
+import tw.alphacamp.tripphotoapp.fragment.AlbumFragment;
 import tw.alphacamp.tripphotoapp.fragment.PlaceholderFragment;
 
 
@@ -101,6 +102,7 @@ public class MainActivity extends ActionBarActivity {
             Fragment fragment = new PlaceholderFragment();
             switch (position) {
                 case 0:
+                    fragment = new AlbumFragment();
                     break;
                 case 1:
                     break;
