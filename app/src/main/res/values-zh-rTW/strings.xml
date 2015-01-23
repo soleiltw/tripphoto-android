@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+	<string name="app_name">旅遊圖秀</string>
+	<string name="action_settings">設定</string>
 	<string name="title_grid">相簿</string>
 	<string name="title_list">列表</string>
 	<string name="title_map">地圖</string>

@@ -33,6 +33,11 @@ public class MainActivity extends ActionBarActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setIcon(R.drawable.ic_action_map);
+        }
+
         viewPager = (ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(mainPagerAdapter);
 
