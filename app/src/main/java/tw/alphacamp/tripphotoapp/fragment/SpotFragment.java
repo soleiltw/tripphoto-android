@@ -9,8 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import com.koushikdutta.ion.Ion;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -24,24 +25,25 @@ import java.util.List;
 /**
  * Created by edward_chiang on 15/1/24.
  */
-public class AlbumFragment extends PlaceholderFragment {
+public class SpotFragment extends PlaceholderFragment {
 
-    private AlbumAdapter albumAdapter;
     private List<Photo> photoList;
+
+    private ListAdapter listAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         photoList = new ArrayList<>();
-        albumAdapter = new AlbumAdapter(getActivity(), R.layout.cell_album, photoList);
+        listAdapter = new ListAdapter(getActivity(), R.layout.cell_album, photoList);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_album, container, false);
-        GridView gridView = (GridView)rootView.findViewById(R.id.album_grid_view);
-        gridView.setAdapter(albumAdapter);
+        View rootView = inflater.inflate(R.layout.fragment_list, container, false);
+        ListView gridView = (ListView)rootView.findViewById(R.id.list_view);
+        gridView.setAdapter(listAdapter);
         return rootView;
     }
 
@@ -57,14 +59,14 @@ public class AlbumFragment extends PlaceholderFragment {
                 if (e == null) {
                     photoList.clear();
                     photoList.addAll(photos);
-                    albumAdapter.notifyDataSetChanged();
+                    listAdapter.notifyDataSetChanged();
                 }
             }
         });
 
     }
 
-    private class AlbumAdapter extends ArrayAdapter<Photo> {
+    private class ListAdapter extends ArrayAdapter<Photo> {
 
         private LayoutInflater layoutInflater;
 
@@ -78,7 +80,7 @@ public class AlbumFragment extends PlaceholderFragment {
          *                 instantiating views.
          * @param objects  The objects to represent in the ListView.
          */
-        public AlbumAdapter(Context context, int resource, List<Photo> objects) {
+        public ListAdapter(Context context, int resource, List<Photo> objects) {
             super(context, resource, objects);
             layoutInflater = LayoutInflater.from(context);
 
@@ -93,13 +95,11 @@ public class AlbumFragment extends PlaceholderFragment {
 
             View rootView = convertView;
             if (rootView == null) {
-                rootView = layoutInflater.inflate(R.layout.cell_album, parent, false);
+                rootView = layoutInflater.inflate(R.layout.cell_spot, parent, false);
             }
 
-
-
             Photo currentPhoto = getItem(position);
-            final ImageView imageView = (ImageView)rootView.findViewById(R.id.album_image_view);
+            final ImageView imageView = (ImageView)rootView.findViewById(R.id.spot_image_view);
             if (currentPhoto.getImageFile() != null) {
                 String imageFileUrl = currentPhoto.getImageFile().getUrl();
                 Ion.with(getActivity())
@@ -109,6 +109,9 @@ public class AlbumFragment extends PlaceholderFragment {
                         .centerCrop()
                         .intoImageView(imageView);
             }
+
+            TextView titleTextView = (TextView)rootView.findViewById(R.id.spot_title_text_view);
+            titleTextView.setText(currentPhoto.getName());
 
             return rootView;
         }
