@@ -11,7 +11,20 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    signingConfigs {
+        releaseConfig {
+            storeFile file ("../tripphoto.jks")
+            storePassword "tripphoto"
+            keyAlias "TripPhoto"
+            keyPassword "tripphoto"
+        }
+    }
+
     buildTypes {
+        debug {
+            signingConfig signingConfigs.releaseConfig
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -22,6 +35,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['**/*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.google.android.gms:play-services:6.5.87'
     compile 'com.koushikdutta.ion:ion:2.0.1'
     compile 'com.jpardogo.materialtabstrip:library:1.0.8'
 }

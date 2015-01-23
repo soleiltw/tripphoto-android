@@ -11,8 +11,9 @@ import android.view.MenuItem;
 import com.astuetz.PagerSlidingTabStrip;
 import tw.alphacamp.tripphotoapp.R;
 import tw.alphacamp.tripphotoapp.fragment.AlbumFragment;
-import tw.alphacamp.tripphotoapp.fragment.SpotFragment;
+import tw.alphacamp.tripphotoapp.fragment.MapFragment;
 import tw.alphacamp.tripphotoapp.fragment.PlaceholderFragment;
+import tw.alphacamp.tripphotoapp.fragment.SpotFragment;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -109,6 +110,7 @@ public class MainActivity extends ActionBarActivity {
                     fragment = new SpotFragment();
                     break;
                 case 2:
+                    fragment = new MapFragment();
                     break;
             }
             return fragment;

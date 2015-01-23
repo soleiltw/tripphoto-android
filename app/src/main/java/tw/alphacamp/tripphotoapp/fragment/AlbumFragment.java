@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,23 @@ public class AlbumFragment extends PlaceholderFragment {
         View rootView = inflater.inflate(R.layout.fragment_album, container, false);
         GridView gridView = (GridView)rootView.findViewById(R.id.album_grid_view);
         gridView.setAdapter(albumAdapter);
+
+        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swipe_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+
+                loadObjects(new LoadObjectCallback() {
+                    @Override
+                    public void didFinishLoad() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, true);
+
+            }
+        });
+
         return rootView;
     }
 
@@ -49,8 +67,18 @@ public class AlbumFragment extends PlaceholderFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        loadObjects(null, false);
+    }
+
+    private void loadObjects(final LoadObjectCallback loadObjectCallback, boolean clearCache) {
         ParseQuery<Photo> photoParseQuery = ParseQuery.getQuery(Photo.class);
         photoParseQuery.setCachePolicy(ParseQuery.CachePolicy.CACHE_ELSE_NETWORK);
+        photoParseQuery.setMaxCacheAge(1000 * 60 * 5);
+
+        if (clearCache) {
+            photoParseQuery.clearCachedResult();
+        }
+
         photoParseQuery.findInBackground(new FindCallback<Photo>() {
             @Override
             public void done(List<Photo> photos, ParseException e) {
@@ -58,10 +86,16 @@ public class AlbumFragment extends PlaceholderFragment {
                     photoList.clear();
                     photoList.addAll(photos);
                     albumAdapter.notifyDataSetChanged();
+                    if (loadObjectCallback != null) {
+                        loadObjectCallback.didFinishLoad();
+                    }
                 }
             }
         });
+    }
 
+    private interface LoadObjectCallback {
+        public void didFinishLoad();
     }
 
     private class AlbumAdapter extends ArrayAdapter<Photo> {
