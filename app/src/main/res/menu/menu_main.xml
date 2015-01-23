@@ -4,7 +4,7 @@
       tools:context=".MainActivity">
 
 	<item android:id="@+id/action_camera"
-	      android:title="Take Picture"
+	      android:title="@string/action_take_picture"
 	      android:orderInCategory="90"
 	      android:icon="@android:drawable/ic_menu_camera"
 	      app:showAsAction="ifRoom|withText" />

@@ -72,13 +72,13 @@ public class AlbumFragment extends PlaceholderFragment {
 
     private void loadObjects(final LoadObjectCallback loadObjectCallback, boolean clearCache) {
         ParseQuery<Photo> photoParseQuery = ParseQuery.getQuery(Photo.class);
-        photoParseQuery.setCachePolicy(ParseQuery.CachePolicy.CACHE_ELSE_NETWORK);
+        photoParseQuery.setCachePolicy(ParseQuery.CachePolicy.CACHE_THEN_NETWORK);
         photoParseQuery.setMaxCacheAge(1000 * 60 * 5);
 
         if (clearCache) {
             photoParseQuery.clearCachedResult();
         }
-
+        photoParseQuery.orderByDescending("createdAt");
         photoParseQuery.findInBackground(new FindCallback<Photo>() {
             @Override
             public void done(List<Photo> photos, ParseException e) {
@@ -129,7 +129,6 @@ public class AlbumFragment extends PlaceholderFragment {
             if (rootView == null) {
                 rootView = layoutInflater.inflate(R.layout.cell_album, parent, false);
             }
-
 
 
             Photo currentPhoto = getItem(position);

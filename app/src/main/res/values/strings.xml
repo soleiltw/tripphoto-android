@@ -8,5 +8,12 @@
 	<string name="title_grid">Album</string>
 	<string name="title_list">List</string>
 	<string name="title_map">Map</string>
+	<string name="empty_location_name">Location name is mission</string>
+	<string name="done">Done</string>
+	<string name="spot_name">Location Name</string>
+	<string name="take_photo">Take Photo</string>
+	<string name="action_take_picture">Take Picture</string>
+	<string name="create_location_title">Saving Location</string>
+	<string name="upload">Upload</string>
 
 </resources>

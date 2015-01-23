@@ -40,6 +40,17 @@ public class MapFragment extends PlaceholderFragment implements OnMapReadyCallba
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (rootView != null) {
+            ViewGroup parentViewGroup = (ViewGroup) rootView.getParent();
+            if (parentViewGroup != null) {
+                parentViewGroup.removeAllViews();
+            }
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         if (rootView!=null) {

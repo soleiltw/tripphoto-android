@@ -1,5 +1,6 @@
 package tw.alphacamp.tripphotoapp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,6 +24,8 @@ public class MainActivity extends ActionBarActivity {
     private MainPagerAdapter mainPagerAdapter;
 
     private PagerSlidingTabStrip tabs;
+
+    private static final int INTENT_POST_PICTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +76,21 @@ public class MainActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.action_camera) {
+            Intent cameraIntent = new Intent(MainActivity.this, PostActivity.class);
+            startActivityForResult(cameraIntent, INTENT_POST_PICTURE);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == INTENT_POST_PICTURE && resultCode == RESULT_OK) {
+
+        }
     }
 
     public class MainPagerAdapter extends FragmentPagerAdapter {
@@ -117,4 +132,8 @@ public class MainActivity extends ActionBarActivity {
         }
 
     }
+
+
+
+
 }

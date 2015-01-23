@@ -52,7 +52,9 @@ public class SpotFragment extends PlaceholderFragment {
         super.onViewCreated(view, savedInstanceState);
 
         ParseQuery<Photo> photoParseQuery = ParseQuery.getQuery(Photo.class);
-        photoParseQuery.setCachePolicy(ParseQuery.CachePolicy.CACHE_ELSE_NETWORK);
+        photoParseQuery.setCachePolicy(ParseQuery.CachePolicy.CACHE_THEN_NETWORK);
+        photoParseQuery.setMaxCacheAge(1000 * 60 * 5);
+        photoParseQuery.orderByDescending("createdAt");
         photoParseQuery.findInBackground(new FindCallback<Photo>() {
             @Override
             public void done(List<Photo> photos, ParseException e) {

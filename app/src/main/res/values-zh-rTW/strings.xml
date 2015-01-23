@@ -5,5 +5,12 @@
 	<string name="title_grid">相簿</string>
 	<string name="title_list">列表</string>
 	<string name="title_map">地圖</string>
+	<string name="empty_location_name">請輸入景點資訊</string>
+	<string name="done">Done</string>
+	<string name="spot_name">景點名稱</string>
+	<string name="take_photo">上傳景點</string>
+	<string name="action_take_picture">拍照上傳</string>
+	<string name="create_location_title">建立景點</string>
+	<string name="upload">上傳</string>
 
 </resources>
