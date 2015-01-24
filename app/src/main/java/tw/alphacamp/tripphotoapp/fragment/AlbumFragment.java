@@ -42,6 +42,7 @@ public class AlbumFragment extends PlaceholderFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_album, container, false);
         GridView gridView = (GridView)rootView.findViewById(R.id.album_grid_view);
+
         gridView.setAdapter(albumAdapter);
 
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swipe_layout);
@@ -49,14 +50,12 @@ public class AlbumFragment extends PlaceholderFragment {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true);
-
                 loadObjects(new LoadObjectCallback() {
                     @Override
                     public void didFinishLoad() {
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 }, true);
-
             }
         });
 
@@ -103,6 +102,7 @@ public class AlbumFragment extends PlaceholderFragment {
         private LayoutInflater layoutInflater;
 
         private int screenWidth;
+        private int screenHeight;
 
         /**
          * Constructor
@@ -120,6 +120,7 @@ public class AlbumFragment extends PlaceholderFragment {
             Point size = new Point();
             display.getSize(size);
             screenWidth = size.x;
+            screenHeight = size.y;
         }
 
         @Override
@@ -130,7 +131,6 @@ public class AlbumFragment extends PlaceholderFragment {
                 rootView = layoutInflater.inflate(R.layout.cell_album, parent, false);
             }
 
-
             Photo currentPhoto = getItem(position);
             final ImageView imageView = (ImageView)rootView.findViewById(R.id.album_image_view);
             if (currentPhoto.getImageFile() != null) {
@@ -138,7 +138,7 @@ public class AlbumFragment extends PlaceholderFragment {
                 Ion.with(getActivity())
                         .load(imageFileUrl)
                         .withBitmap()
-                        .resize(screenWidth / 2, screenWidth / 2 * 9 / 16)
+                        .resize(screenWidth / 2, Math.min(screenWidth, screenHeight))
                         .centerCrop()
                         .intoImageView(imageView);
             }

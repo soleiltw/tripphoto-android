@@ -93,12 +93,14 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    public class MainPagerAdapter extends FragmentPagerAdapter {
+    private class MainPagerAdapter extends FragmentPagerAdapter {
 
         private final String[] TITLES = {
                 getString(R.string.title_grid),
                 getString(R.string.title_list),
-                getString(R.string.title_map) };
+                getString(R.string.title_map),
+                getString(R.string.tab_blank_section)
+        };
 
         public MainPagerAdapter(FragmentManager fm) {
             super(fm);

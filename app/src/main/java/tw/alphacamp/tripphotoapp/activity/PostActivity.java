@@ -67,15 +67,20 @@ public class PostActivity extends ActionBarActivity {
                     Toast.makeText(PostActivity.this, getString(R.string.empty_location_name), Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (photoBitmap == null) {
+                    Toast.makeText(PostActivity.this, getString(R.string.empty_photo), Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                photoBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] photoData = stream.toByteArray();
 
                 final ProgressDialog progressDialog = new ProgressDialog(PostActivity.this);
                 progressDialog.setTitle(getString(R.string.create_location_title));
                 progressDialog.setMessage(getString(R.string.upload));
                 progressDialog.show();
+
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                photoBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] photoData = stream.toByteArray();
 
                 Photo photo = new Photo();
                 photo.setImageFile(new ParseFile("photo.png", photoData));

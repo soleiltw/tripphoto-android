@@ -12,5 +12,8 @@
 	<string name="action_take_picture">拍照上傳</string>
 	<string name="create_location_title">建立景點</string>
 	<string name="upload">上傳</string>
+	<string name="tab_blank_section">空白</string>
+
+	<string name="empty_photo">照片是空的</string>
 
 </resources>

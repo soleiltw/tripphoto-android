@@ -1,10 +1,8 @@
 package tw.alphacamp.tripphotoapp.fragment;
 
 import android.content.Context;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,8 +70,6 @@ public class SpotFragment extends PlaceholderFragment {
 
         private LayoutInflater layoutInflater;
 
-        private int screenWidth;
-
         /**
          * Constructor
          *
@@ -85,11 +81,6 @@ public class SpotFragment extends PlaceholderFragment {
         public ListAdapter(Context context, int resource, List<Photo> objects) {
             super(context, resource, objects);
             layoutInflater = LayoutInflater.from(context);
-
-            Display display = getActivity().getWindowManager().getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
-            screenWidth = size.x;
         }
 
         @Override
@@ -107,8 +98,6 @@ public class SpotFragment extends PlaceholderFragment {
                 Ion.with(getActivity())
                         .load(imageFileUrl)
                         .withBitmap()
-                        .resize(screenWidth / 2, screenWidth / 2 * 9 / 16)
-                        .centerCrop()
                         .intoImageView(imageView);
             }
 

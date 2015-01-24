@@ -6,7 +6,8 @@
               android:layout_height="match_parent">
 
 	<GridView
-		android:numColumns="2"
+		android:columnWidth="320dp"
+		android:numColumns="auto_fit"
 		android:layout_margin="5dp"
 		android:horizontalSpacing="5dp"
 		android:verticalSpacing="5dp"
